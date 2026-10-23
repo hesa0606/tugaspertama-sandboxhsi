@@ -11,7 +11,6 @@ interface CartSummaryProps {
 export default function CartSummary({ items, onRemoveItem }: CartSummaryProps) {
   const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Ganti dengan nomor WhatsApp toko Anda (Gunakan format 62...)
   const PHONE_NUMBER = "6283869661072";
 
   const handleCheckout = () => {
