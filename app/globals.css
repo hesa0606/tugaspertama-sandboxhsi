@@ -19,12 +19,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Gill Sans,Trebuchet MS, sans-serif;
+  font-family:
+    Gill Sans,
+    Trebuchet MS,
+    sans-serif;
   position: relative;
   min-height: 100vh;
   margin: 0;
 }
-
 
 body::before {
   content: "";
@@ -35,18 +37,11 @@ body::before {
   height: 100%;
   background-image: url("/hesaprintbg.jpeg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: justify-center;
   background-repeat: no-repeat;
   opacity: 0.3;
   z-index: -1;
   pointer-events: none;
-}
-
-div {
-  position: relative;
-  z-index: 1;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 p {
