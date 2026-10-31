@@ -1,7 +1,6 @@
 "use client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-
 
 export default function TentangPage() {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function TentangPage() {
       <div className="flex gap-4">
         {/* Navigasi ke halaman Blog */}
         <button
-          onClick={() => router.push('/blog')}
+          onClick={() => router.push("/blog")}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
           Lihat Blog
@@ -26,7 +25,7 @@ export default function TentangPage() {
 
         {/* Tombol Kembali ke Halaman beranda */}
         <button
-          onClick={() => router.push ('/')}
+          onClick={() => router.push("/")}
           className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
         >
           Kembali ke Beranda
