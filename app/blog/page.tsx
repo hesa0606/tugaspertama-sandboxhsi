@@ -1,22 +1,14 @@
 import Link from "next/link";
 import { posts } from "./data";
+import DaftarTulisan from "./daftar-tulisan";
 
 export default function BlogPage() {
+  const daftarSlug = posts.map((post) => post.slug);
+
   return (
-    <main className="mx-auto max-w-2xl p-8">
+    <main className="mx-auto max-w-2xl my-8 p-6 bg-white/95 rounded-xl shadow-md backdrop-blur-sm">
       <h1 className="text-2xl font-bold mb-4">Blog</h1>
-      <ul className="list-disc pl-5 space-y-2">
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <DaftarTulisan daftar={daftarSlug} />
     </main>
   );
 }
