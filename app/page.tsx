@@ -1,5 +1,3 @@
-import link from "next/link";
-
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">

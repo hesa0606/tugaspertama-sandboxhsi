@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from "react";
 
-export default function LikeButton({ slug }: { slug: string }) {
+export function LikeButton({ slug }: { slug: string }) {
   const [jumlahSuka, setJumlahSuka] = useState(0);
 
   useEffect(() => {
     const simpanan = localStorage.getItem(`suka-${slug}`);
-    setJumlahSuka(simpanan === null ? 0 : Number(simpanan));
+    const jumlah = simpanan === null ? 0 : Number(simpanan);
+
+    requestAnimationFrame(() => {
+      setJumlahSuka(jumlah);
+    });
   }, [slug]);
 
   function tambahSuka() {
@@ -17,7 +21,10 @@ export default function LikeButton({ slug }: { slug: string }) {
   }
 
   return (
-    <button onClick={tambahSuka} className="rounded-lg border px-4 py-2">
+    <button
+      onClick={tambahSuka}
+      className="flex items-center gap-1.5 px-3 py-1 hover:bg-gray-100 transition cursor-pointer"
+    >
       👍 {jumlahSuka}
     </button>
   );

@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useFavorit } from "@/context/favorit-context";
 
 export default function Menu() {
   const pathname = usePathname();
+  const { daftar } = useFavorit();
 
   const navItems = [
     { name: "Beranda", href: "/" },
@@ -26,8 +28,8 @@ export default function Menu() {
                 href={item.href}
                 className={`font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-indigo-600 border-b-2 border-blue-600 pb-1" // Gaya saat aktif
-                    : "text-gray-600 hover:text-gray-900" // Gaya saat tidak aktif
+                    ? "text-indigo-600 border-b-2 border-blue-600 pb-1" 
+                    : "text-gray-600 hover:text-gray-900" 
                 }`}
               >
                 {item.name}
@@ -35,6 +37,7 @@ export default function Menu() {
             </li>
           );
         })}
+        <li> <span>Favorit: {daftar.length}</span></li>
       </ul>
     </nav>
   );

@@ -10,9 +10,11 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "no-console": ["warn", { allow: ["warn", "error"] }],
-       "@typescript-eslint/no-unused-vars": "off",
-       "@next/next/no-img-element": "off",
-      "react-hooks/set-state-in-effect": "off",
+       "@typescript-eslint/no-unused-vars": [ "warn",
+       {argsIgnorePattern: "^_",varsIgnorePattern: "^_"},
+       ],
+       "@next/next/no-img-element": "warn",
+      // react-hooks/set-state-in-effect": "off",
      
     },
   },
