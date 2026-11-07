@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import ProductList from "./_components/ProductList";
 import CartSummary from "./_components/CartSummary";
@@ -28,10 +29,12 @@ export default function EtalaseTokoPage() {
   return (
     <div className="min-h-screen bg-slate-200 relative">
       <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none select-none p-4">
-        <img
+        <Image
           src="/hesaprintbg.jpeg"
-          alt="Hesa Print Online Watermark"
-          className="w-[500px] max-w-[85vw] object-contain opacity-10"
+          alt="Deskripsi produk etalase"
+          width={400}
+          height={300}
+          className="..."
         />
       </div>
 

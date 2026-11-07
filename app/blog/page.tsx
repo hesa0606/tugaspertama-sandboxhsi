@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { posts } from "./data";
-import DaftarTulisan from "./daftar-tulisan";
+import DaftarTulisan from "./_components/daftar-tulisan";
 
 export default function BlogPage() {
   const daftarSlug = posts.map((post) => post.slug);

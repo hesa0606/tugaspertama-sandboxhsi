@@ -1,8 +1,8 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Menu from "./menu";
+import Menu from "../components/menu";
+import { FavoritProvider } from "../context/favorit-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +23,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <Menu />
-        {children}
+        <FavoritProvider>
+          <Menu />
+          {children}
+        </FavoritProvider>
       </body>
     </html>
   );

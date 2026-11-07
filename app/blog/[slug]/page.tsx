@@ -1,6 +1,7 @@
 import { posts } from "../data";
-import LikeButton from "./like-button";
-import CommentButton from "./comment-button";
+import { LikeButton } from "./_components/like-button";
+import { CommentButton } from "./_components/comment-button";
+import { TombolFavorit } from "@/components/tombol-favorit";
 import { notFound } from "next/navigation";
 
 export default async function TulisanPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -20,6 +21,7 @@ export default async function TulisanPage({ params }: { params: Promise<{ slug: 
       <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "16px 0" }}>
         <LikeButton slug={post.slug} />
         <CommentButton slug={post.slug} />
+        <TombolFavorit slug={slug} />
       </div>
       <p className="mt-4 text-gray-700 leading-relaxed">{post.content}</p>
     </main>
