@@ -14,6 +14,7 @@ export default function Menu() {
     { name: "Etalase Toko", href: "/etalasetoko" },
     { name: "Kontak", href: "/kontak" },
     { name: "Blog", href: "/blog" },
+    { name: "Todo", href: "/todo" },
   ];
 
   return (
@@ -28,8 +29,8 @@ export default function Menu() {
                 href={item.href}
                 className={`font-medium transition-colors duration-200 ${
                   isActive
-                    ? "text-indigo-600 border-b-2 border-blue-600 pb-1" 
-                    : "text-gray-600 hover:text-gray-900" 
+                    ? "text-indigo-600 border-b-2 border-blue-600 pb-1"
+                    : "text-gray-600 hover:text-gray-900"
                 }`}
               >
                 {item.name}
@@ -37,7 +38,10 @@ export default function Menu() {
             </li>
           );
         })}
-        <li> <span>Favorit: {daftar.length}</span></li>
+        <li>
+          {" "}
+          <span>Favorit: {daftar.length}</span>
+        </li>
       </ul>
     </nav>
   );

@@ -17,7 +17,7 @@ export function CommentForm({ teks, onChangeTeks, onSubmit }: CommentFormProps) 
         onChange={(e) => onChangeTeks(e.target.value)}
         placeholder="Tulis komentar..."
         aria-label="Tulis komentar"
-        className="flex items-center gap-1.5 text-grey-800 hover:opacity-75"
+        className="border p-2 rounded flex-1"
       />
       <button
         type="submit"
