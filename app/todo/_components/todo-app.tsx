@@ -1,0 +1,41 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useTodos } from "@/context/todo-context";
+import type { FilterTodo } from "@/types/todo";
+import styles from "@/styles/todo.module.css";
+import TodoFilter from "./todo-filter";
+import TodoForm from "./todo-form";
+import TodoList from "./todo-list";
+
+export default function TodoApp() {
+  const { todos, sudahMemuat, tambahTodo, ubahSelesai, hapusTodo } = useTodos();
+  const [filter, setFilter] = useState<FilterTodo>("semua");
+
+  const todosTampil = useMemo(() => {
+    const hasilFilter = todos.filter((todo) => {
+      if (filter === "belum") return !todo.selesai;
+      if (filter === "selesai") return todo.selesai;
+      return true;
+    });
+
+    return [...hasilFilter].sort((a, b) => Number(a.selesai) - Number(b.selesai));
+  }, [todos, filter]);
+
+  const jumlahBelumSelesai = todos.filter((todo) => !todo.selesai).length;
+
+  if (!sudahMemuat) {
+    return <p className={styles.note}>Memuat daftar tugas...</p>;
+  }
+
+  return (
+    <div className={styles.card}>
+      <TodoForm saatTambah={tambahTodo} />
+      <TodoFilter pilihan={filter} saatPilih={setFilter} />
+      <TodoList todos={todosTampil} saatDicentang={ubahSelesai} saatDihapus={hapusTodo} />
+      <p className={styles.note}>
+        {jumlahBelumSelesai} dari {todos.length} tugas belum selesai
+      </p>
+    </div>
+  );
+}

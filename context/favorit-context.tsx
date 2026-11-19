@@ -10,11 +10,7 @@ type FavoritState = {
 
 const FavoritContext = createContext<FavoritState | null>(null);
 
-export function FavoritProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function FavoritProvider({ children }: { children: ReactNode }) {
   const [daftar, setDaftar] = useState<string[]>([]);
 
   function ubahFavorit(slug: string) {
@@ -30,9 +26,7 @@ export function FavoritProvider({
   }
 
   return (
-    <FavoritContext.Provider value={{ daftar, ubahFavorit }}>
-      {children}
-    </FavoritContext.Provider>
+    <FavoritContext.Provider value={{ daftar, ubahFavorit }}>{children}</FavoritContext.Provider>
   );
 }
 
