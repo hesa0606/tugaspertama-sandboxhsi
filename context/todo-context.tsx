@@ -9,13 +9,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { TODO_AWAL } from "../data/todo";
-import { bacaTodo, simpanTodo } from "@/lib/todo-storage";
+import { bacaTodos } from "@/lib/todo-api";
 import type { Todo } from "../types/todo";
 
 type TodoContextValue = {
   todos: Todo[];
-  sudahMemuat: boolean;
+  sedangMemuat: boolean;
+  error: string | null;
   tambahTodo: (teks: string, deadline?: string) => void;
   ubahSelesai: (id: number) => void;
   hapusTodo: (id: number) => void;
@@ -24,22 +24,24 @@ type TodoContextValue = {
 const TodoContext = createContext<TodoContextValue | null>(null);
 
 export function TodoProvider({ children }: { children: ReactNode }) {
-  const [todos, setTodos] = useState<Todo[]>(TODO_AWAL);
-  const [sudahMemuat, setSudahMemuat] = useState(false);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [sedangMemuat, setSedangMemuat] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // saya menggunakan queueMicrotask agar asinkron & lolos ESLint
   useEffect(() => {
-    queueMicrotask(() => {
-      const daftarTersimpan = bacaTodo();
-      setTodos(daftarTersimpan ?? TODO_AWAL);
-      setSudahMemuat(true);
-    });
+    async function muat() {
+      try {
+        const daftar = await bacaTodos("nami");
+        setTodos(daftar);
+      } catch {
+        setError("Gagal memuat daftar tugas dari server");
+      } finally {
+        setSedangMemuat(false);
+      }
+    }
+
+    muat();
   }, []);
-
-  useEffect(() => {
-    if (!sudahMemuat) return;
-    simpanTodo(todos);
-  }, [todos, sudahMemuat]);
 
   const tambahTodo = useCallback((teks: string, deadline?: string) => {
     setTodos((daftarLama) => [
@@ -59,8 +61,15 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ todos, sudahMemuat, tambahTodo, ubahSelesai, hapusTodo }),
-    [todos, sudahMemuat, tambahTodo, ubahSelesai, hapusTodo],
+    () => ({
+      todos,
+      sedangMemuat,
+      error,
+      tambahTodo,
+      ubahSelesai,
+      hapusTodo,
+    }),
+    [todos, sedangMemuat, error, tambahTodo, ubahSelesai, hapusTodo],
   );
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
