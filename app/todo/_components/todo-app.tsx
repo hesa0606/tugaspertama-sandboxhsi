@@ -9,7 +9,7 @@ import TodoForm from "./todo-form";
 import TodoList from "./todo-list";
 
 export default function TodoApp() {
-  const { todos, sudahMemuat, tambahTodo, ubahSelesai, hapusTodo } = useTodos();
+  const { todos, sedangMemuat, error, tambahTodo, ubahSelesai, hapusTodo } = useTodos();
   const [filter, setFilter] = useState<FilterTodo>("semua");
 
   const todosTampil = useMemo(() => {
@@ -24,8 +24,12 @@ export default function TodoApp() {
 
   const jumlahBelumSelesai = todos.filter((todo) => !todo.selesai).length;
 
-  if (!sudahMemuat) {
-    return <p className={styles.note}>Memuat daftar tugas...</p>;
+  if (sedangMemuat) {
+    return <p className={styles.note}>Memuat daftar tugas dari server...</p>;
+  }
+
+  if (error) {
+    return <p className="text-sm text-red-600">{error}</p>;
   }
 
   return (

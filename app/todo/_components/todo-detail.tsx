@@ -6,11 +6,20 @@ import { TodoDeadline } from "./todo-deadline";
 
 export default function TodoDetail({ id }: { id: string }) {
   const router = useRouter();
-  const { todos, sudahMemuat } = useTodos();
-  const todo = todos.find((item) => String(item.id) === id);
+  const { todos, sedangMemuat, error } = useTodos();
 
-  if (!sudahMemuat) return <p>Memuat tugas...</p>;
-  if (!todo) return <p>Tugas tidak ditemukan.</p>;
+  if (sedangMemuat) {
+    return <p>Memuat daftar tugas dari server...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-600">{error}</p>;
+  }
+
+  const todo = todos.find((item) => String(item.id) === id);
+  if (!todo) {
+    return <p>Tugas tidak ditemukan.</p>;
+  }
 
   return (
     <div>
